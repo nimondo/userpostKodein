@@ -38,7 +38,7 @@ class UserViewModel(appContext: Context): ViewModel(),KodeinAware{
     private lateinit var subscription: Disposable
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val adapter = UserListener{ userId ->
-        Toast.makeText(appContext, "${userId}", Toast.LENGTH_LONG).show()
+//        Toast.makeText(appContext, "${userId}", Toast.LENGTH_LONG).show()
         onUserClicked(userId)
     }
     val userListAdapter: UserListAdapter = UserListAdapter(adapter)

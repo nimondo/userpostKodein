@@ -22,5 +22,21 @@
         <argument
             android:name="myArgs"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_postFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.example.mvvmkodein.ui.postdetail.PostDetailFragment"
+        android:label="fragment_post_detail"
+        tools:layout="@layout/fragment_post_detail" >
+        <argument
+            android:name="myArg"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.mvvmkodein.ui.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>

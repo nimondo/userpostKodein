@@ -8,7 +8,7 @@ import com.example.mvvmkodein.R
 import com.example.mvvmkodein.data.db.entities.Post
 import com.example.mvvmkodein.databinding.ItemPostBinding
 
-class PostListAdapter: RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
+class PostListAdapter(val clickListener: PostListener): RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
     private lateinit var postList:List<Post>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
@@ -17,7 +17,7 @@ class PostListAdapter: RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
-        holder.bind(postList[position])
+        holder.bind(postList[position]!!, clickListener)
     }
 
     override fun getItemCount(): Int {
@@ -32,9 +32,16 @@ class PostListAdapter: RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
     class ViewHolder(private val binding: ItemPostBinding):RecyclerView.ViewHolder(binding.root){
         private val viewModel = PostGetViewModel()
 
-        fun bind(post:Post){
+        fun bind(
+            post: Post,
+            clickListener: PostListener
+        ){
             viewModel.bind(post)
             binding.viewModel = viewModel
+            binding.clickListener = clickListener
         }
     }
+}
+class PostListener(val clickListener: (postId: Int) -> Unit){
+    fun onClick(post: Post) =  clickListener(post.id)
 }
