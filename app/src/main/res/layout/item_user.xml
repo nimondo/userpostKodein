@@ -6,13 +6,18 @@
         <variable
             name="viewModel"
             type="com.example.mvvmkodein.ui.user.UserRetrieveViewModel" />
+        <variable
+            name="clickListener"
+            type="com.example.mvvmkodein.ui.user.UserListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="16dp"
+        android:onClick="@{() -> clickListener.onClick(viewModel.userAll)}">
         <TextView
             android:id="@+id/user_name"
             android:layout_width="0dp"

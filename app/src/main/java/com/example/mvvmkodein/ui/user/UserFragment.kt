@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.example.mvvmkodein.R
@@ -42,13 +44,26 @@ class UserFragment : Fragment(),KodeinAware {
             false
         )
         binding.userList.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//        viewModelFactory = ViewModelFactory(ScoreFragmentArgs.fromBundle(arguments!!).score)
+//        val adapter = UserListAdapter(UserListener{ userId ->
+//            Toast.makeText(context, "${userId}", Toast.LENGTH_LONG).show()
+//        })
+//        binding.userList.adapter = adapter
         viewModel = ViewModelProviders.of(this,factory).get(UserViewModel::class.java)
         binding.userViewModel = viewModel
         viewModel.errorMessage.observe(this, Observer {
                 errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
         })
         binding.lifecycleOwner = this
+        viewModel.navigateToUserPost.observe(this, Observer { user ->
+            user?.let {
+
+                this.findNavController().navigate(
+
+                    UserFragmentDirections
+                        .actionUserFragmentToPostFragment(user))
+                viewModel.onUserNavigated()
+            }
+        })
         return binding.root
     }
     private fun showError(@StringRes errorMessage:Int){

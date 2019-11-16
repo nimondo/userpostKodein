@@ -4,9 +4,7 @@ import com.example.mvvmkodein.data.db.entities.Post
 import com.example.mvvmkodein.data.db.entities.User
 import io.reactivex.Observable
 import retrofit2.http.GET
-
-
-
+import retrofit2.http.Path
 
 
 interface JsonApi {
@@ -17,6 +15,10 @@ interface JsonApi {
     fun getUsers(): Observable<List<User>>
     @GET("/posts")
     fun getPosts(): Observable<List<Post>>
+//    @GET("/posts")
+//    fun getPosts(
+//        @Path("userId") userId: Int
+//    ): Observable<List<Post>>>
 
 
 }
